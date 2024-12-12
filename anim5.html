@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анимация с большими дугами</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .ball-group {
+      display: flex;
+      gap: 30px;
+      cursor: pointer;
+    }
+
+    .ball {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #3498db;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Анимация движения по более плавной и большой дуге для левого шарика */
+    @keyframes move-left {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(-80px, -80px); } /* Большая амплитуда дуги */
+      100% { transform: translate(0, 0); }
+    }
+
+    /* Анимация движения по более плавной и большой дуге для правого шарика */
+    @keyframes move-right {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(80px, -80px); } /* Большая амплитуда дуги */
+      100% { transform: translate(0, 0); }
+    }
+
+    /* Класс для активации анимации движения влево */
+    .active-left {
+      animation: move-left 1.5s ease-in-out;
+    }
+
+    /* Класс для активации анимации движения вправо */
+    .active-right {
+      animation: move-right 1.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ball-group" onclick="animateBalls()">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
+
+  <script>
+    let balls = document.querySelectorAll('.ball');
+
+    function animateBalls() {
+      // Сначала удаляем все классы анимации
+      balls.forEach(ball => {
+        ball.classList.remove('active-left', 'active-right');
+      });
+
+      let leftIndex = 0; // Это первый шарик
+      let rightIndex = balls.length - 1; // Это пятый шарик
+
+      // Анимация для крайнего левого шарика
+      balls[leftIndex].classList.add('active-left');
+      balls[leftIndex].addEventListener('animationend', function() {
+        balls[leftIndex].classList.remove('active-left');
+        
+        // Когда анимация левого шарика завершится, начнем анимацию правого шарика
+        balls[rightIndex].classList.add('active-right');
+        balls[rightIndex].addEventListener('animationend', function() {
+          balls[rightIndex].classList.remove('active-right');
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анимация Халка</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      animation: shake 1s infinite;
+      overflow: hidden; /* Скрыть полосы прокрутки */
+    }
+
+    .hulk {
+      position: relative;
+      width: 220px;
+      height: 450px;
+      background-color: #006400; /* Зеленый цвет Халка */
+      border-radius: 15px 15px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      animation: hulkAnimation 3s infinite;
+    }
+
+    /* Голова Халка */
+    .hulk .head {
+      width: 120px;
+      height: 120px;
+      background-color: #008000;
+      border-radius: 50%;
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Глаза Халка */
+    .hulk .head .eye {
+      width: 18px;
+      height: 18px;
+      background-color: black;
+      border-radius: 50%;
+      position: absolute;
+      top: 35px;
+    }
+
+    .hulk .head .eye.left {
+      left: 30px;
+    }
+
+    .hulk .head .eye.right {
+      right: 30px;
+    }
+
+    /* Открытие рта */
+    .hulk .head .mouth {
+      width: 50px;
+      height: 20px;
+      background-color: #fff;
+      position: absolute;
+      top: 70px;
+      border-radius: 10px;
+      transform: scaleY(0);
+      transition: transform 0.2s ease-out;
+    }
+
+    .hulk:hover .head .mouth {
+      transform: scaleY(1);
+    }
+
+    /* Руки Халка */
+    .hulk .arm {
+      width: 70px;
+      height: 180px;
+      background-color: #006400;
+      position: absolute;
+      top: 80px;
+      border-radius: 20px;
+      transition: top 0.5s ease-in-out;
+    }
+
+    .hulk .arm.left {
+      left: -80px;
+      transform: rotate(-45deg);
+    }
+
+    .hulk .arm.right {
+      right: -80px;
+      transform: rotate(45deg);
+    }
+
+    .hulk:hover .arm.left,
+    .hulk:hover .arm.right {
+      top: 150px;
+    }
+
+    /* Ноги Халка */
+    .hulk .leg {
+      width: 90px;
+      height: 200px;
+      background-color: #006400;
+      position: absolute;
+      bottom: 0;
+      border-radius: 25px;
+    }
+
+    .hulk .leg.left {
+      left: 20px;
+    }
+
+    .hulk .leg.right {
+      right: 20px;
+    }
+
+    /* Тело Халка с мускулами */
+    .hulk .body {
+      width: 140px;
+      height: 250px;
+      background-color: #006400;
+      position: absolute;
+      top: 80px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    /* Детали мускулов */
+    .hulk .body .muscle {
+      width: 50px;
+      height: 60px;
+      background-color: #008000;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .hulk .body .muscle.left {
+      left: -20px;
+    }
+
+    .hulk .body .muscle.right {
+      right: -20px;
+    }
+
+    /* Анимация содрогания сцены */
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-5px);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+      100% {
+        transform: translateX(5px);
+      }
+    }
+
+    /* Анимация Халка (подъем рук и мускулы) */
+    @keyframes hulkAnimation {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="hulk">
+    <div class="head">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
+    <div class="body">
+      <div class="muscle left"></div>
+      <div class="muscle right"></div>
+    </div>
+    <div class="arm left"></div>
+    <div class="arm right"></div>
+    <div class="leg left"></div>
+    <div class="leg right"></div>
+  </div>
+
+</body>
+</html>

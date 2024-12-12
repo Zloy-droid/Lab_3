@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анимация стрелок с увеличением и уменьшением числа</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .slider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .steps {
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    .arrow {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .arrow:before, .arrow:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 2px;
+      background-color: black;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .arrow:before {
+      left: 0;
+      transform: translateY(-50%) rotate(45deg); 
+    }
+
+    .arrow:after {
+      right: 0;
+      transform: translateY(-50%) rotate(-45deg); 
+    }
+
+    .arrow:hover {
+      opacity: 1;
+    }
+
+    .arrow:active {
+      transform: scale(0.9);
+    }
+
+    #prev {
+      transform-origin: right center;
+    }
+
+    #next {
+      transform-origin: left center;
+    }
+
+    #prev:hover, #next:hover {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    .arrow.collapsed:before, .arrow.collapsed:after {
+      width: 20px;
+      transform: translateY(-50%) rotate(0deg);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="slider">
+    <div class="arrow" id="prev"></div>
+    <div class="steps" id="step">1 / 5</div>
+    <div class="arrow" id="next"></div>
+  </div>
+
+  <script>
+    let currentStep = 1; 
+    const totalSteps = 5; 
+    const stepElement = document.getElementById('step');
+    const prevArrow = document.getElementById('prev'); 
+    const nextArrow = document.getElementById('next'); 
+
+    function updateArrows() {
+      stepElement.textContent = `${currentStep} / ${totalSteps}`;
+      if (currentStep === 1) {
+        prevArrow.classList.add('collapsed');
+      } else {
+        prevArrow.classList.remove('collapsed');
+      }
+
+      if (currentStep === totalSteps) {
+        nextArrow.classList.add('collapsed');
+      } else {
+        nextArrow.classList.remove('collapsed');
+      }
+    }
+
+    prevArrow.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--; 
+        updateArrows(); 
+      }
+    });
+
+    nextArrow.addEventListener('click', () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateArrows(); 
+      }
+    });
+
+    updateArrows();
+  </script>
+</body>
+</html>

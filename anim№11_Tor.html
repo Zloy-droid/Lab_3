@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тор и молния</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      overflow: hidden;
+      transition: all 0.1s ease;
+    }
+
+    .thor {
+      position: relative;
+      width: 200px;
+      height: 350px;
+      background-color: #2a9d8f; /* Одежда Тора */
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Голова Тора */
+    .thor .head {
+      width: 60px;
+      height: 60px;
+      background-color: #f4a261; /* Цвет кожи */
+      border-radius: 50%;
+      position: absolute;
+      top: -40px;
+    }
+
+    /* Глаза Тора */
+    .thor .head .eye {
+      width: 10px;
+      height: 10px;
+      background-color: black;
+      border-radius: 50%;
+      position: absolute;
+      top: 20px;
+    }
+
+    .thor .head .eye.left {
+      left: 15px;
+    }
+
+    .thor .head .eye.right {
+      right: 15px;
+    }
+
+    /* Руки Тора */
+    .thor .arms {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      width: 120px;
+    }
+
+    .thor .arms .arm {
+      width: 20px;
+      height: 70px;
+      background-color: #f4a261; /* Цвет кожи */
+      border-radius: 10px;
+    }
+
+    .thor .arms .arm.left {
+      transform: rotate(-45deg);
+    }
+
+    .thor .arms .arm.right {
+      transform: rotate(45deg);
+    }
+
+    /* Молот Тора */
+    .hammer {
+      width: 40px;
+      height: 10px;
+      background-color: #6c757d; /* Цвет молота */
+      border-radius: 5px;
+      position: absolute;
+      top: -30px;
+      left: 80px;
+      animation: throwHammer 2s infinite alternate;
+    }
+
+    /* Рукоятка молота */
+    .hammer .handle {
+      width: 10px;
+      height: 80px;
+      background-color: #343a40;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Ноги Тора */
+    .thor .legs {
+      width: 140px;
+      height: 100px;
+      background-color: #2a9d8f;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20px;
+    }
+
+    /* Молния */
+    .lightning {
+      position: absolute;
+      width: 10px;
+      height: 100px;
+      background-color: yellow;
+      z-index: 20;
+      display: none;
+      animation: flash 0.2s ease-out forwards;
+      top: -100px;
+      left: 90px; /* Позиционируем молнию по голове Тора */
+    }
+
+    /* Анимация молота */
+    @keyframes throwHammer {
+      0% {
+        transform: translateX(0) translateY(0);
+      }
+      50% {
+        transform: translateX(200px) translateY(-150px);
+      }
+      100% {
+        transform: translateX(0) translateY(0);
+      }
+    }
+
+    /* Анимация молнии */
+    @keyframes flash {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) scaleY(5);
+      }
+    }
+
+    /* Сотрясение экрана */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+
+    .shaking {
+      animation: shake 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="thor" onclick="throwLightning()">
+    <div class="head">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+    </div>
+    <div class="arms">
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+    </div>
+    <div class="hammer">
+      <div class="handle"></div>
+    </div>
+    <div class="legs"></div>
+    <div class="lightning"></div> <!-- Молния будет появляться здесь -->
+  </div>
+
+  <script>
+    function throwLightning() {
+      // Добавление анимации молнии
+      const lightning = document.querySelector('.lightning');
+      lightning.style.display = 'block';
+
+      // Включаем сотрясение экрана
+      document.body.classList.add('shaking');
+
+      // После окончания анимации молнии скрыть ее
+      setTimeout(() => {
+        lightning.style.display = 'none';
+      }, 200);
+
+      // Убираем эффект сотрясения
+      setTimeout(() => {
+        document.body.classList.remove('shaking');
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
